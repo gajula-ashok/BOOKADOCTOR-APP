@@ -35,6 +35,24 @@ export const AppProvider = ({ children }) => {
       return { success: false, message: error.response?.data?.message || "Login failed" };
     }
   };
+  const register = async (formData) => {
+    try {
+      setLoading(true);
+      const { data } = await API.post("/user/register", formData, {
+        headers: { "Content-Type": "multipart/form-data" } // important for file upload
+      });
+      
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data));
+      setToken(data.token);
+      setUser(data);
+      setLoading(false);
+      return { success: true };
+    } catch (error) {
+      setLoading(false);
+      return { success: false, message: error.response?.data?.message || "Registration failed" };
+    }
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
