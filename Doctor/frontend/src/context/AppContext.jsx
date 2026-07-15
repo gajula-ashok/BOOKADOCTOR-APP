@@ -2,15 +2,17 @@ import { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 const AppContext = createContext();
 export const AppProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('medicare-user');
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(
+  localStorage.getItem("token") || ""
+);
 
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+const [user, setUser] = useState(() => {
+  const savedUser =
+    localStorage.getItem("user") ||
+    localStorage.getItem("medicare-user");
+
+  return savedUser ? JSON.parse(savedUser) : null;
+});
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
   // Setup default headers for Axios when token is available
