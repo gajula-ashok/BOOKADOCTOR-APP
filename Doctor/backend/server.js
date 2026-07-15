@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const connectDB = require('./Config/db');
-const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
+const { notFound, errorHandler } = require('./Middlewares/errorMiddleware');
 const User = require('./models/User');
 // Connect to Database
 connectDB();
