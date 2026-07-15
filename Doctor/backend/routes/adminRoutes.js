@@ -12,8 +12,8 @@ const {
   deleteDoctor,
   addDoctor
 } = require('../Controllers/adminController');
-const { protect, restrictTo } = require('../Middlewares/authMiddleware');
-const upload = require('../Middlewares/uploadMiddleware');
+const { protect, restrictTo } = require('../middlewares/authMiddleware');
+const upload = require('../middlewares/uploadMiddleware');
 // Protect all routes inside this router for Admins only
 router.use(protect, restrictTo('admin'));
 router.get('/stats', getStats);

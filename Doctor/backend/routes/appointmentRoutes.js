@@ -6,8 +6,8 @@ const {
   updateAppointmentStatus,
   deleteAppointment
 } = require('../Controllers/appointmentController');
-const { protect } = require('../Middlewares/authMiddleware');
-const upload = require('../Middlewares/uploadMiddleware');
+const { protect } = require('../middlewares/authMiddleware');
+const upload = require('../middlewares/uploadMiddleware');
 router.post('/book', protect, upload.single('medicalReport'), bookAppointment);
 router.get('/', protect, getAppointments);
 router.put('/:id/status', protect, updateAppointmentStatus);

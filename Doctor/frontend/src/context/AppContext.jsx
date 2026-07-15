@@ -34,42 +34,76 @@ const [user, setUser] = useState(() => {
       localStorage.removeItem('medicare-user');
     }
   }, [user]);
-  // Login handler
-  const login = async (email, password) => {
-    setLoading(true);
-    try {
-      const response = await axios.post('/api/auth/login', { email, password });
-      setToken(response.data.token);
-      console.log(response.data);
-      setUser({
-        _id: response.data._id,
-        name: response.data.name,
-        email: response.data.email,
-        phone: response.data.phone,
-        age: response.data.age,
-        gender: response.data.gender,
-        address: response.data.address,
-        profilePhoto: response.data.profilePhoto,
-        role: response.data.role
-      });
-      console.log("Login Success",response.data)
-      return { success: true };
-    } catch (error) {
-      return {
-        success: false,
-        message: error.response?.data?.message || 'Login failed'
-      };
-    } finally {
-      setLoading(false);
-    }
-  };
+// Login handler
+const login = async (email, password) => {
+  setLoading(true);
+
+  try {
+    const response = await axios.post('/api/auth/login', {
+      email,
+      password
+    });
+
+    console.log(response.data);
+
+    // Save token
+    setToken(response.data.token);
+    localStorage.setItem("token", response.data.token);
+
+    // Create user object
+    const userData = {
+      _id: response.data._id,
+      name: response.data.name,
+      email: response.data.email,
+      phone: response.data.phone,
+      age: response.data.age,
+      gender: response.data.gender,
+      address: response.data.address,
+      profilePhoto: response.data.profilePhoto,
+      role: response.data.role
+    };
+
+    // Save user state
+    setUser(userData);
+
+    // Save user in localStorage
+    localStorage.setItem(
+      "user",
+      JSON.stringify(userData)
+    );
+
+    console.log("Login Success", response.data);
+
+    return {
+      success: true
+    };
+
+  } catch (error) {
+
+    console.log("Login Error:", error.response?.data);
+
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Login failed"
+    };
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
   // Register handler
   const register = async (formData) => {
     setLoading(true);
     try {
       // formData is a FormData object due to file upload
-      const response = await axios.post('/api/auth/login', { email, password });
-
+      const response = await axios.post('/api/auth/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       setToken(response.data.token);
 
       const userData = {
