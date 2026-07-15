@@ -66,6 +66,7 @@ export const AppProvider = ({ children }) => {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setToken(response.data.token);
+      console.log(response.data);
       setUser({
         _id: response.data._id,
         name: response.data.name,

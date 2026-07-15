@@ -114,12 +114,15 @@ const CustomNavbar = () => {
               <NavDropdown
                 title={
                   <img
-                    src={user.profilePhoto.startsWith('/uploads') ? user.profilePhoto : '/uploads/default-avatar.png'}
-                    alt={user.name}
+                    src={
+                      user?.profilePhoto?.startsWith('/uploads')
+                        ? user.profilePhoto
+                        : '/uploads/default-avatar.png'
+                    }
+                    alt={user?.name}
                     className="rounded-circle border"
                     width="32"
                     height="32"
-                    style={{ objectFit: 'cover' }}
                   />
                 }
                 id="profile-dropdown"

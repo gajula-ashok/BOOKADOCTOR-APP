@@ -129,18 +129,16 @@ const UserDashboard = () => {
                     {appointments.map((app) => {
                       const docName = app.doctorId?.userId?.name || 'Doctor';
                       const docSpec = app.doctorId?.specialization || 'Medical Specialist';
-                      const docPhoto = app.doctorId?.userId?.profilePhoto || '/uploads/default-avatar.png';
                       return (
                         <tr key={app._id}>
                           <td style={{ minWidth: '180px' }}>
                             <div className="d-flex align-items-center gap-2">
                               <img
-                                src={docPhoto.startsWith('/uploads') ? docPhoto : '/uploads/default-avatar.png'}
-                                alt={docName}
-                                className="rounded-circle border"
-                                width="36"
-                                height="36"
-                                style={{ objectFit: 'cover' }}
+                                src={
+                                docPhoto?.startsWith('/uploads')
+                                ? docPhoto
+                                : '/uploads/default-avatar.png'
+                                }
                               />
                               <div>
                                 <span className="fw-semibold d-block text-truncate" style={{ maxWidth: '120px' }}>Dr. {docName}</span>
