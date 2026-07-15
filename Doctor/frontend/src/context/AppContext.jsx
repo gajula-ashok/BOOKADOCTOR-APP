@@ -9,6 +9,11 @@ export const AppProvider = ({ children }) => {
   const [token, setToken] = useState(() => {
     return localStorage.getItem('medicare-token') || '';
   });
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
   // Setup default headers for Axios when token is available
@@ -35,8 +40,6 @@ export const AppProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await axios.post('/api/auth/login', { email, password });
-      const result = await login(email, password);
-      console.log("Login Result:", result);
       setToken(response.data.token);
       console.log(response.data);
       setUser({
@@ -50,7 +53,7 @@ export const AppProvider = ({ children }) => {
         profilePhoto: response.data.profilePhoto,
         role: response.data.role
       });
-      console.log("User State Updated")
+      console.log("Login Success",response.data)
       return { success: true };
     } catch (error) {
       return {
@@ -66,12 +69,13 @@ export const AppProvider = ({ children }) => {
     setLoading(true);
     try {
       // formData is a FormData object due to file upload
-      const response = await axios.post('/api/auth/register', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      const response = await axios.post('/api/auth/login', { email, password });
+
+      const response = await axios.post('/api/auth/login', { email, password });
+
       setToken(response.data.token);
-      console.log(response.data);
-      setUser({
+
+      const userData = {
         _id: response.data._id,
         name: response.data.name,
         email: response.data.email,
@@ -81,7 +85,14 @@ export const AppProvider = ({ children }) => {
         address: response.data.address,
         profilePhoto: response.data.profilePhoto,
         role: response.data.role
-      });
+      };
+
+      setUser(userData);
+
+      // Save login data
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(userData));
+
       return { success: true };
     } catch (error) {
       return {
