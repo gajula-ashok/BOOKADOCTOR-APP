@@ -6,9 +6,6 @@ export const AppProvider = ({ children }) => {
     const savedUser = localStorage.getItem('medicare-user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
-  const [token, setToken] = useState(() => {
-    return localStorage.getItem('medicare-token') || '';
-  });
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   const [user, setUser] = useState(
