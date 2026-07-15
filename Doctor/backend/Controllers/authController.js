@@ -57,37 +57,24 @@ const registerUser = async (req, res, next) => {
 // @desc    Authenticate user & get token
 // @route   POST /api/auth/login
 // @access  Public
-const loginUser = async (req, res, next) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (user && (await user.matchPassword(password))) {
-      // Check if suspended
-      if (user.role === 'doctor') {
-        const doctorProfile = await Doctor.findOne({ userId: user._id });
-        if (doctorProfile && doctorProfile.isSuspended) {
-          res.status(403);
-          throw new Error('Your doctor account is suspended. Contact administrator.');
-        }
-      }
+
+    if(user && (await user.matchPassword(password))) {
       res.json({
         _id: user._id,
         name: user.name,
         email: user.email,
-        phone: user.phone,
-        age: user.age,
-        gender: user.gender,
-        address: user.address,
-        profilePhoto: user.profilePhoto,
-        role: user.role,
+        role: user.role, // <- IMPORTANT for your redirect
         token: generateToken(user._id)
       });
     } else {
-      res.status(401);
-      throw new Error('Invalid email or password');
+      res.status(401).json({ message: "Invalid Email or Password" });
     }
   } catch (error) {
-    next(error);
+    res.status(500).json({ message: error.message });
   }
 };
 // @desc    Get user profile

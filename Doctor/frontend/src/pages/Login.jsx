@@ -132,8 +132,7 @@ const Login = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => alert('Forgot Password UI Demo: In production, this emails a verification code. Default Admin is admin@medicare.com / AdminPass123!')}
-                    className="btn btn-link p-0 text-primary fw-medium text-decoration-none"
+                    onClick={() => alert('Forgot Password feature coming soon')}                    className="btn btn-link p-0 text-primary fw-medium text-decoration-none"
                   >
                     Forgot Password?
                   </button>
