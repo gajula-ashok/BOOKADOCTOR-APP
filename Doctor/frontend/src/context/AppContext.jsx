@@ -35,7 +35,10 @@ export const AppProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await axios.post('/api/auth/login', { email, password });
+      const result = await login(email, password);
+      console.log("Login Result:", result);
       setToken(response.data.token);
+      console.log(response.data);
       setUser({
         _id: response.data._id,
         name: response.data.name,
@@ -47,6 +50,7 @@ export const AppProvider = ({ children }) => {
         profilePhoto: response.data.profilePhoto,
         role: response.data.role
       });
+      console.log("User State Updated")
       return { success: true };
     } catch (error) {
       return {
