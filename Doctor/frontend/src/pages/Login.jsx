@@ -31,6 +31,12 @@ const Login = () => {
       navigate('/user/dashboard');
     }
   };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const res = await axios.post('https://bookadoctor-backend.onrender.com/api/user/login', data);
+    localStorage.setItem('token', res.data.token);
+    navigate('/dashboard'); // this 'navigate' must be a function
+  }
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -138,13 +144,7 @@ const Login = () => {
                   </button>
                 </div>
 
-                <Button
-                  type="submit"
-                  disabled={loadingLocal}
-                  className="btn-primary-custom w-100 py-2.5 text-white fw-semibold mb-3 d-flex justify-content-center align-items-center"
-                >
-                  {loadingLocal ? 'Signing in...' : 'Sign In'}
-                </Button>
+                <button onClick={handleLogin}>Login</button> // pass function reference
               </Form>
 
               <div className="text-center mt-3 small">
