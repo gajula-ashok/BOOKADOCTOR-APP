@@ -4,9 +4,9 @@ const {
   getDoctors,
   getDoctorById,
   applyAsDoctor
-} = require('../controllers/doctorController');
-const { protect } = require('../middlewares/authMiddleware');
-const upload = require('../middlewares/uploadMiddleware');
+} = require('../Controllers/doctorController');
+const { protect } = require('../Middlewares/authMiddleware');
+const upload = require('../Middlewares/uploadMiddleware');
 router.get('/', getDoctors);
 router.get('/:id', getDoctorById);
 router.post(

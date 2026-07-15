@@ -5,9 +5,9 @@ const {
   loginUser,
   getUserProfile,
   updateUserProfile
-} = require('../controllers/authController');
-const { protect } = require('../middlewares/authMiddleware');
-const upload = require('../middlewares/uploadMiddleware');
+} = require('../Controllers/authController');
+const { protect } = require('../Middlewares/authMiddleware');
+const upload = require('../Middlewares/uploadMiddleware');
 router.post('/register', upload.single('profilePhoto'), registerUser);
 router.post('/login', loginUser);
 router.route('/profile')

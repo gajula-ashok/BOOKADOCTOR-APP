@@ -4,8 +4,8 @@ const {
   getNotifications,
   markAllRead,
   markNotificationRead
-} = require('../controllers/notificationController');
-const { protect } = require('../middlewares/authMiddleware');
+} = require('../Controllers/notificationController');
+const { protect } = require('../Middlewares/authMiddleware');
 router.use(protect);
 router.get('/', getNotifications);
 router.put('/read', markAllRead);
