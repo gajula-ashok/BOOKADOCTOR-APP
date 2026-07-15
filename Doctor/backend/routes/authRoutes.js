@@ -7,7 +7,7 @@ const {
   updateUserProfile
 } = require('../Controllers/authController');
 const { protect } = require('../Middlewares/authMiddleware');
-const upload = require('../middlewares/uploadMiddleware');
+const upload = require('../Middlewares/uploadMiddleware');
 router.post('/register', upload.single('profilePhoto'), registerUser);
 router.post('/login', loginUser);
 router.route('/profile')
