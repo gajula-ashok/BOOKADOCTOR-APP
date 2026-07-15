@@ -71,8 +71,6 @@ export const AppProvider = ({ children }) => {
       // formData is a FormData object due to file upload
       const response = await axios.post('/api/auth/login', { email, password });
 
-      const response = await axios.post('/api/auth/login', { email, password });
-
       setToken(response.data.token);
 
       const userData = {
